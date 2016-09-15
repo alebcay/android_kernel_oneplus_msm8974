@@ -693,8 +693,8 @@ static int __init sweep2sleep_init(void)
 	}
 
 	// Initialize delayed work for status bar timer
-	INIT_DEFERRABLE_WORK(&statusBarTimer, statusBarTimer_work);
-	
+	INIT_DELAYED_WORK_DEFERRABLE(&statusBarTimer, statusBarTimer_work);
+
 	return 0;
 
 err4:
