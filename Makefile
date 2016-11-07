@@ -249,7 +249,8 @@ HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fomit-frame-p
 HOSTCXXFLAGS = -O3
 
 # Tweaks
-TWEAKFLAGS += -fforce-addr \
+TWEAKFLAGS += -DNDEBUG \
+              -fforce-addr \
               -fgcse-las \
               -fgcse-lm \
               -fgcse-sm \
@@ -266,8 +267,9 @@ TWEAKFLAGS += -fforce-addr \
               -ftree-loop-linear \
               -ftree-vectorize \
               -funroll-loops \
-              -fweb
-                
+              -fweb \
+              -pipe
+
 HOSTCFLAGS += $(TWEAKFLAGS)
 HOSTCXXFLAGS += $(TWEAKFLAGS)
 
@@ -379,7 +381,7 @@ CFLAGS_MODULE   = $(TWEAKFLAGS)
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  = -Wl --sort-common
 CFLAGS_KERNEL	= $(TWEAKFLAGS)
-AFLAGS_KERNEL	=
+AFLAGS_KERNEL	= $(TWEAKFLAGS)
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage $(TWEAKFLAGS)
 
 
@@ -401,8 +403,8 @@ KBUILD_CFLAGS   += -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Wno-unused-function \
 		   -fno-delete-null-pointer-checks \
 		   -std=gnu89
-KBUILD_AFLAGS_KERNEL :=
-KBUILD_CFLAGS_KERNEL :=
+KBUILD_AFLAGS_KERNEL := $(TWEAKFLAGS)
+KBUILD_CFLAGS_KERNEL := $(TWEAKFLAGS)
 KBUILD_AFLAGS   := -D__ASSEMBLY__
 KBUILD_AFLAGS_MODULE  := -DMODULE
 KBUILD_CFLAGS_MODULE  := -DMODULE -fno-pic
@@ -596,7 +598,7 @@ else
 KBUILD_CFLAGS	+= -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves \
 		   -fno-tree-vectorize -Wno-array-bounds -fivopts \
 		   -Wno-unused-variable -Wno-unused-function \
-		   -fno-inline-functions
+		   -fno-inline-functions -pipe -DNDEBUG
 endif
 
 # Tell gcc to never replace conditional load with a non-conditional one
