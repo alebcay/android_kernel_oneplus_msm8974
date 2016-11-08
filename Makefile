@@ -399,6 +399,7 @@ KBUILD_CFLAGS   += -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Wno-implicit-function-declaration \
 		   -Wno-format-security \
+                   -Wno-maybe-uninitialized \
 		   -Wno-unused-variable \
 		   -Wno-unused-function \
 		   -fno-delete-null-pointer-checks \
